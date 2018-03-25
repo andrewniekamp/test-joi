@@ -6,11 +6,7 @@ const validateRequest = require('./routeConfig');
 
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  let validation = validateRequest(req);
-  if (validation && validation.name === 'ValidationError') res.status(400).send(validation);
-  else next();
-})
+app.use(validateRequest);
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
