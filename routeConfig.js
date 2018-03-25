@@ -1,4 +1,4 @@
-const { celebrate, Joi, errors } = require('celebrate');
+const Joi = require('joi');
 
 const routesToSecure = {
   '/validate': {
@@ -35,7 +35,4 @@ const validateRequest = (req) => {
   return null;
 }
 
-module.exports = {
-  validateRequest,
-  routesToSecure
-}
+module.exports = validateRequest;

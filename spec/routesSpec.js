@@ -1,6 +1,3 @@
-var chai = require('chai');
-var should = chai.should();
-var sinon = require('sinon');
 var request = require('supertest');
 var app = require('../app.js');
 

@@ -1,14 +1,13 @@
 const express = require('express')
 const bodyParser = require('body-parser');
-const { celebrate, Joi, errors } = require('celebrate');
 const app = express()
 
-const routeConfig = require('./routeConfig');
+const validateRequest = require('./routeConfig');
 
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  let validation = routeConfig.validateRequest(req);
+  let validation = validateRequest(req);
   if (validation && validation.name === 'ValidationError') res.status(400).send(validation);
   else next();
 })
