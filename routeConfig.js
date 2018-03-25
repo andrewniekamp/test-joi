@@ -11,5 +11,23 @@ const routesToSecure = {
     }
   }
 }
+const validateRequest = (req) => {
+  if (routesToSecure[req.path] && routesToSecure[req.path].requiresValidation) {
+    if (routesToSecure[req.path].config.query) {
+      return Joi.validate(req.query, routesToSecure[req.path].config.query, (err, value) => {
+        if (err) return err;
+      })
+    }
+    if (routesToSecure[req.path].config.body) {
+      return Joi.validate(req.body, routesToSecure[req.path].config.body, (err, value) => {
+        if (err) return err;
+      })
+    }
+  }
+  return null;
+}
 
-module.exports = routesToSecure;
+module.exports = {
+  validateRequest,
+  routesToSecure
+}

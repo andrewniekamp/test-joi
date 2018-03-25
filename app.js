@@ -3,19 +3,14 @@ const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const app = express()
 
-const routesToSecure = require('./routeConfig');
+const routeConfig = require('./routeConfig');
 
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  if (routesToSecure[req.path] && routesToSecure[req.path].requiresValidation) {
-    Joi.validate(req.body, routesToSecure[req.path].config.body, (err, value) => {
-      if (err) res.status(400).send(err);
-      else next();
-    })
-  } else {
-    next()
-  }
+  let validation = routeConfig.validateRequest(req);
+  if (validation && validation.name === 'ValidationError') res.status(400).send(validation);
+  else next();
 })
 
 app.get('/', (req, res) => res.send('Hello World!'))
