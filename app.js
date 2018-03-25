@@ -19,6 +19,13 @@ app.get('/penelope', (req, res) => {
   res.send({ name: 'Penelope' });
 })
 
+app.get('/users', (req, res) => {
+  res.send({ user: {
+    name: 'Penelope',
+    age: 5
+  } });
+})
+
 app.post('/validate', (req, res) => {
   // Only sent when req is validated above
   res.send({ secretCode: 12345 });

@@ -9,6 +9,14 @@ const routesToSecure = {
         age: Joi.number().integer().required()
       })
     }
+  },
+  '/users': {
+    requiresValidation: true,
+    config: {
+      query: Joi.object().keys({
+        id: Joi.number().required(),
+      })
+    }
   }
 }
 const validateRequest = (req) => {
